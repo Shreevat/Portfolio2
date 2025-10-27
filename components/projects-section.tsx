@@ -11,7 +11,7 @@ const projects = [
     description:
       "A side-scrolling platformer game made in Unity Engine. Worked on level design and game mechanics.",
     tags: ["Unity", "Game Design", "C#"],
-    image: "/platformer-game.jpg",
+    image: "/RajeshDai.gif",
     link: "https://drive.google.com/drive/folders/1Z5YeSFo3bUvMq_q04TkBTkSZz5LCHCAH",
   },
   {
@@ -20,7 +20,7 @@ const projects = [
     description:
       "A driving game made in Unity Engine, featuring a license trial mode. Worked on map design and physics.",
     tags: ["Unity", "Game Development", "C#"],
-    image: "/driving-game.jpg",
+    image: "/MailoDriver.gif",
     link: "https://drive.google.com/drive/folders/1GCVMZWSbKnadJGPOg4WWOKrjS6Gyo4oP",
   },
 ];

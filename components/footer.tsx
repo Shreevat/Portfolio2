@@ -18,8 +18,7 @@ export default function Footer() {
               Shreevatshanka
             </h3>
             <p className="text-muted-foreground">
-              Frontend Developer & Creative Coder crafting beautiful digital
-              experiences.
+              Software Developer & Creative Coder crafting digital experiences.
             </p>
           </motion.div>
 
@@ -34,7 +33,6 @@ export default function Footer() {
             <ul className="space-y-2 text-muted-foreground">
               {[
                 { name: "Projects", href: "/projects" },
-                { name: "Experience", href: "/#experience" },
                 { name: "Contact", href: "/contact" },
               ].map((link) => (
                 <li key={link.name}>

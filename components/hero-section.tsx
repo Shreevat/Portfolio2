@@ -2,6 +2,44 @@
 
 import { motion } from "framer-motion";
 import { socialLinks } from "@/lib/constants";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+
+const TypingText = ({ text }: { text: string }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const typingSpeed = 100;
+    const deletingSpeed = 50;
+    const pauseTime = 1500;
+
+    let timeout: NodeJS.Timeout;
+
+    if (!isDeleting && displayedText !== text) {
+      timeout = setTimeout(() => {
+        setDisplayedText(text.slice(0, displayedText.length + 1));
+      }, typingSpeed);
+    } else if (isDeleting && displayedText !== "") {
+      timeout = setTimeout(() => {
+        setDisplayedText(displayedText.slice(0, -1));
+      }, deletingSpeed);
+    } else if (displayedText === text && !isDeleting) {
+      timeout = setTimeout(() => {
+        setIsDeleting(true);
+      }, pauseTime);
+    } else if (displayedText === "" && isDeleting) {
+      timeout = setTimeout(() => {
+        setIsDeleting(false);
+      }, 500);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, isDeleting, text]);
+
+  return <span>{displayedText}</span>;
+};
 
 export default function HeroSection() {
   return (
@@ -40,7 +78,7 @@ export default function HeroSection() {
               </span>
             </h1>
             <h2 className="text-2xl md:text-3xl text-muted-foreground font-light">
-              Frontend Developer & Creative Coder
+              <TypingText text="Frontend Developer & Creative Coder" />
             </h2>
           </div>
 
@@ -52,23 +90,27 @@ export default function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4 pt-4">
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 20px 25px -5px rgba(88, 175, 174, 0.3)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg"
-            >
-              View My Work
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05, borderColor: "var(--primary)" }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-colors"
-            >
-              Get In Touch
-            </motion.button>
+            <Link href="/projects">
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 25px -5px rgba(88, 175, 174, 0.3)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg"
+              >
+                View My Work
+              </motion.button>
+            </Link>
+            <Link href="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05, borderColor: "var(--primary)" }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-colors"
+              >
+                Get In Touch
+              </motion.button>
+            </Link>
           </div>
 
           {/* Social Links */}
@@ -77,8 +119,6 @@ export default function HeroSection() {
               <motion.a
                 key={i}
                 href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 aria-label={social.name}
                 whileHover={{ scale: 1.2, y: -5 }}
                 className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:border-primary hover:bg-primary/10 transition-all"
@@ -96,24 +136,20 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="hidden lg:flex items-center justify-center"
         >
-          <div className="relative w-full max-w-md aspect-square">
-            <div className="absolute inset-0 bg-linear-to-br from-primary/25 to-tertiary/10 rounded-2xl border border-primary/30 backdrop-blur-sm shadow-2xl"></div>
+          <div className="relative w-full max-w-xs aspect-square">
+            <div className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-primary/30 shadow-2xl">
+              <Image
+                src="/me.jpg"
+                alt="Shreevatshanka Dhakal"
+                fill
+                className="object-cover"
+                priority
+              />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent"></div>
+            </div>
 
-            {/* Floating elements */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY }}
-              className="absolute top-10 left-10 w-20 h-20 bg-primary/15 rounded-lg border border-primary/40 shadow-lg"
-            ></motion.div>
-            <motion.div
-              animate={{ y: [0, 20, 0] }}
-              transition={{
-                duration: 5,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: 0.5,
-              }}
-              className="absolute bottom-10 right-10 w-24 h-24 bg-tertiary/10 rounded-lg border border-tertiary/30 shadow-lg"
-            ></motion.div>
+            {/* Animated border frame */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{
@@ -122,6 +158,22 @@ export default function HeroSection() {
                 ease: "linear",
               }}
               className="absolute inset-0 rounded-2xl border border-primary/15"
+            ></motion.div>
+
+            {/* Floating accent elements */}
+            <motion.div
+              animate={{ y: [0, -20, 0] }}
+              transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY }}
+              className="absolute -top-4 -left-4 w-16 h-16 bg-primary/15 rounded-lg border border-primary/40 shadow-lg"
+            ></motion.div>
+            <motion.div
+              animate={{ y: [0, 20, 0] }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                delay: 0.5,
+              }}
+              className="absolute -bottom-4 -right-4 w-20 h-20 bg-tertiary/10 rounded-lg border border-tertiary/30 shadow-lg"
             ></motion.div>
           </div>
         </motion.div>
