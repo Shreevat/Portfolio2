@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { socialLinks } from "@/lib/constants";
 
 export default function HeroSection() {
   return (
@@ -35,7 +35,7 @@ export default function HeroSection() {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
               <span className="text-foreground">Shreevatshanka</span>
               <br />
-              <span className="bg-gradient-to-r from-primary to-tertiary bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Dhakal
               </span>
             </h1>
@@ -73,16 +73,13 @@ export default function HeroSection() {
 
           {/* Social Links */}
           <div className="flex gap-6 pt-8">
-            {[
-              { icon: FaGithub, href: "#", label: "GitHub" },
-              { icon: FaLinkedin, href: "#", label: "LinkedIn" },
-              { icon: FaTwitter, href: "#", label: "Twitter" },
-              { icon: FaEnvelope, href: "#", label: "Email" },
-            ].map((social, i) => (
+            {socialLinks.map((social, i) => (
               <motion.a
                 key={i}
                 href={social.href}
-                aria-label={social.label}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
                 whileHover={{ scale: 1.2, y: -5 }}
                 className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:border-primary hover:bg-primary/10 transition-all"
               >

@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { motion } from "framer-motion";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const projects = [
   {
@@ -11,8 +12,7 @@ const projects = [
       "A side-scrolling platformer game made in Unity Engine. Worked on level design and game mechanics.",
     tags: ["Unity", "Game Design", "C#"],
     image: "/platformer-game.jpg",
-    link: "#",
-    github: "#",
+    link: "https://drive.google.com/drive/folders/1Z5YeSFo3bUvMq_q04TkBTkSZz5LCHCAH",
   },
   {
     id: 2,
@@ -21,8 +21,7 @@ const projects = [
       "A driving game made in Unity Engine, featuring a license trial mode. Worked on map design and physics.",
     tags: ["Unity", "Game Development", "C#"],
     image: "/driving-game.jpg",
-    link: "#",
-    github: "#",
+    link: "https://drive.google.com/drive/folders/1GCVMZWSbKnadJGPOg4WWOKrjS6Gyo4oP",
   },
 ];
 
@@ -39,10 +38,10 @@ export default function ProjectsSection() {
         >
           <div className="space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="text-muted-foreground">Featured</span>{" "}
+              <span className="text-muted-foreground">Some Game</span>{" "}
               <span className="text-primary">Projects</span>
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-tertiary rounded-full"></div>
+            <div className="w-20 h-1 bg-linear-to-r from-primary to-tertiary rounded-full"></div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -61,20 +60,14 @@ export default function ProjectsSection() {
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4 gap-3">
+                  <div className="absolute inset-0 bg-linear-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4 gap-3">
                     <motion.a
                       href={project.link}
-                      whileHover={{ scale: 1.1 }}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 shadow-lg"
                     >
                       <FaExternalLinkAlt size={16} />
-                    </motion.a>
-                    <motion.a
-                      href={project.github}
-                      whileHover={{ scale: 1.1 }}
-                      className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 shadow-lg"
-                    >
-                      <FaGithub size={16} />
                     </motion.a>
                   </div>
                 </div>
